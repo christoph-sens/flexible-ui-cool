@@ -15,10 +15,10 @@ import { NgFor, NgIf } from '@angular/common';
 	imports: [TextComponent, DropdownComponent, DateComponent, ButtonComponent,
 		FormsModule, ReactiveFormsModule, NgFor, NgIf]
 })
-export class DetailComponent<T extends Object> implements OnChanges {
+export class DetailComponent implements OnChanges {
 	@Input() config!: Config;
-	@Input() inputObject!: T;
-	@Output() result = new EventEmitter<T>();
+	@Input() inputObject: any = {};
+	@Output() result = new EventEmitter<any>();
 	detailFilters: DetailFilter[] = [];
 	form!: FormGroup;
 
@@ -50,9 +50,9 @@ export class DetailComponent<T extends Object> implements OnChanges {
 	onSubmit() {
 		const searchFilterNames = this.config.attributes.map((att) => att.name);
 		const values = this.form.value;
-		const inputObject: any = {};
-		searchFilterNames.forEach((ele) => inputObject[ele] = values[ele]);
-		this.result.emit(inputObject as T);
+		const result: any = {};
+		searchFilterNames.forEach((ele) => result[ele] = values[ele]);
+		this.result.emit(result);
 	}
 }
 

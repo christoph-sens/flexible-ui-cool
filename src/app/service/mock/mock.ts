@@ -1,7 +1,4 @@
 import { Config } from "../model/config.model";
-import { Customer, Status } from "../model/customer.model";
-import { Order } from "../model/order.model";
-
 
 export const customerConfig: Config =
 {
@@ -52,14 +49,14 @@ export const customerConfig: Config =
 	]
 };
 
-export const customers: Customer[] = [
+export const customers: any[] = [
 	{
 		customerId: "cId1",
 		firstName: "Max",
 		lastName: "Meyer",
 		street: "Penner Str. 15",
 		phone: 123,
-		status: Status.UNKNOWN,
+		status: "UNKNOWN",
 		city: "Paderbr00klyn",
 		plz: 32100,
 		birthday: new Date(Date.now()).toISOString().substring(0, 10),
@@ -71,7 +68,7 @@ export const customers: Customer[] = [
 		lastName: "Meyer",
 		street: "Penner Str. 15",
 		phone: 123,
-		status: Status.UNKNOWN,
+		status: "UNKNOWN",
 		city: "Paderbr00klyn",
 		plz: 32100,
 		birthday: new Date(Date.now()).toISOString().substring(0, 10),
@@ -79,7 +76,7 @@ export const customers: Customer[] = [
 	}
 ];
 
-export const orders: Order[] = [
+export const orders: any[] = [
 	{
 		orderId: '1',
 		customerId: 'cId1'

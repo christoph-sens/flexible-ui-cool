@@ -5,22 +5,22 @@ import { customers, orders } from "./mock/mock";
 @Injectable({
     providedIn: 'root',
 })
-export class Service<T extends Object> {
+export class Service {
 
-    search(object: T, className: string): Observable<T[]> {
+    search(object: any, className: string): Observable<any> {
         if (className.toLowerCase() === "customer") {
-            return of(customers as any as T[]);
+            return of(customers as any);
         } else {
-            return of(orders as any as T[]);
+            return of(orders as any);
         }
     }
-    add(object: T): Observable<void> {
+    add(object: any): Observable<void> {
         return of();
     }
-    remove(object: T): Observable<void> {
+    remove(object: any): Observable<void> {
         return of();
     }
-    update(object: T): Observable<void> {
+    update(object: any): Observable<void> {
         return of();
     }
 }

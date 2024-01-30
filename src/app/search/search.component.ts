@@ -13,38 +13,40 @@ import { Service } from '../service/service';
 	styleUrl: './search.component.css',
 	imports: [NgIf, TableComponent, DetailComponent]
 })
-export class SearchComponent<T extends Object> implements OnInit {
+export class SearchComponent implements OnInit {
 
-	@Input() searchObject!: T;
+	@Input() configName!: string;
 
-	tableValues: T[] = [];
+	searchObject!: any;
 
-	selectedObject!: T;
+	tableValues: any[] = [];
+
+	selectedObject!: any;
 
 	config!: Config;
 
-	constructor(private configService: ConfigService, private service: Service<T>) {
+	constructor(private configService: ConfigService, private service: Service) {
 
 	}
 
 	ngOnInit(): void {
-		this.configService.getConfig(this.searchObject.constructor.name).subscribe((config) => this.createDataForGrid(config));
+		this.configService.getConfig(this.configName).subscribe((config) => this.createDataForGrid(config));
 	}
 
 	createDataForGrid(config: Config) {
 		this.config = config;
 
 	}
-	onSearch(object: T) {
-		this.service.search(object, this.searchObject.constructor.name).subscribe((data: T[]) => this.tableValues = data);
+	onSearch(object: any) {
+		this.service.search(object, this.configName).subscribe((data: any[]) => this.tableValues = data);
 	}
 
 
-	onItemSelect(object: T) {
+	onItemSelect(object: any) {
 		this.selectedObject = object;
 	}
 
-	onResult(object: T) {
+	onResult(object: any) {
 		console.log(object);
 	}
 
