@@ -1,0 +1,3 @@
+<div><label>{{label}}</label>
+	<input type="text" [(ngModel)]="value" (change)="onChange($any($event.target).value)" [disabled]="disabled">
+</div>

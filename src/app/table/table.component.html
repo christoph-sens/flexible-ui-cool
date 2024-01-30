@@ -1,0 +1,14 @@
+<p-table [value]="values" selectionMode="single" (onRowSelect)="onSelectItem()" [(selection)]="selectedItem" [tableStyle]="{ 'min-width': '50rem' }">
+	<ng-template pTemplate="header">
+		<tr>
+			<th *ngFor="let headline of headlines">{{headline}}</th>
+		</tr>
+	</ng-template>
+	<ng-template pTemplate="body" let-rowData>
+		<tr [pSelectableRow]="rowData">
+			<td *ngFor="let headline of headlines">
+				{{ rowData[headline] }}
+			</td>
+		</tr>
+	</ng-template>
+</p-table>

@@ -1,0 +1,11 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+	<div *ngFor="let filter of detailFilters">
+		<app-text *ngIf="filter.type == 'String' || filter.type == 'number'" [label]="filter.name"
+			[formControlName]="filter.name" [value]="filter.value"></app-text>
+		<app-dropdown *ngIf="filter.type == 'enum'" [label]="filter.name"
+			[formControlName]="filter.name" [value]="filter.value"></app-dropdown>
+		<app-date *ngIf="filter.type == 'date'" [label]="filter.name" 
+			[formControlName]="filter.name" [value]="filter.value"></app-date>
+	</div>
+	<app-button label="click"></app-button>
+</form>

@@ -1,0 +1,4 @@
+<app-detail [inputObject]="searchObject" [config]="config" (result)="onSearch($event)"></app-detail>
+<app-table *ngIf="tableValues.length > 0" [values]="tableValues" (onSelectedItem)="onItemSelect($event)"></app-table>
+<app-detail *ngIf="selectedObject !== undefined" (result)="onResult($event)"
+ [config]="config" [inputObject]="selectedObject"></app-detail>
