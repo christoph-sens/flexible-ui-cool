@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Customer } from '../service/model/customer.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { customers } from './mock/mock';
@@ -12,11 +11,11 @@ export class CustomerService {
 
 	constructor(private httpClient: HttpClient) { }
 
-	searchCustomer(customer: Customer): Observable<Customer[]> {
+	searchCustomer(customer: any): Observable<any[]> {
 		const queryParams = CustomerService.prepareQueryParams(customer);
 		const url = 'http://www.example.com/search/';
 		const options = { params: queryParams };
-		return this.httpClient.get<Customer[]>(url, options);
+		return this.httpClient.get<any[]>(url, options);
 	}
 
 	static prepareQueryParams(obj: any): HttpParams {
@@ -31,7 +30,7 @@ export class CustomerService {
 		return queryParams;
 	}
 
-	searchCostumerMock(customer: Customer): Observable<Customer[]> {
+	searchCostumerMock(customer: any): Observable<any[]> {
 		return of(customers);
 	}
 

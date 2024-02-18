@@ -3,7 +3,9 @@ import { Config } from "../model/config.model";
 export const customerConfig: Config =
 {
 	"model": "customer",
+	"apiEndpoint": "api/customers/",
 	"permissions": "CRUD",
+	"identifier": "customerId",
 	"attributes": [
 		{
 			"name": "customerId",
@@ -89,8 +91,10 @@ export const orders: any[] = [
 
 export const orderConfig: Config =
 {
-	"model": "rorder",
+	"model": "order",
 	"permissions": "CRUD",
+	"apiEndpoint": "api/orders/",
+	"identifier": "orderId",
 	"attributes": [
 		{
 			"name": "customerId",

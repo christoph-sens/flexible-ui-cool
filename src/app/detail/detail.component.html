@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
+<form [formGroup]="form">
 	<div *ngFor="let filter of detailFilters">
 		<app-text *ngIf="filter.type == 'String' || filter.type == 'number'" [label]="filter.name"
 			[formControlName]="filter.name" [value]="filter.value"></app-text>
@@ -7,5 +7,5 @@
 		<app-date *ngIf="filter.type == 'date'" [label]="filter.name" 
 			[formControlName]="filter.name" [value]="filter.value"></app-date>
 	</div>
-	<app-button label="click"></app-button>
+	<ng-content></ng-content>
 </form>

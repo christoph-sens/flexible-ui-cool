@@ -1,26 +1,57 @@
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { customers, orders } from "./mock/mock";
+import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http";
+import { Config } from "./model/config.model";
 
 @Injectable({
     providedIn: 'root',
 })
 export class Service {
 
-    search(object: any, className: string): Observable<any> {
-        if (className.toLowerCase() === "customer") {
-            return of(customers as any);
+    static baseUrl = "http://localhost:4200/";
+
+    constructor(private httpClient: HttpClient) { }
+
+    searchMock(object: any, configName: string): Observable<any[]> {
+        if (configName.toLowerCase() === "customer") {
+            return of(customers);
         } else {
-            return of(orders as any);
+            return of(orders);
         }
     }
-    add(object: any): Observable<void> {
-        return of();
+
+    search(object: any, config: Config): Observable<any[]> {
+        const queryParams = Service.prepareQueryParams(object);
+        const options = { params: queryParams };
+        return this.httpClient.get<any[]>(Service.baseUrl + config.apiEndpoint, options);
     }
-    remove(object: any): Observable<void> {
-        return of();
+
+    add(object: any, config: Config): Observable<Object> {
+        return this.httpClient.post(Service.baseUrl + config.apiEndpoint, object);
     }
-    update(object: any): Observable<void> {
-        return of();
+
+    remove(object: any, config: Config): Observable<Object> {
+        const identifier = object[config.identifier];
+        const url = Service.baseUrl + config.apiEndpoint + identifier;
+        return this.httpClient.delete(url);
+    }
+
+    update(object: any, config: Config): Observable<Object> {
+        const identifier = object[config.identifier];
+        const url = Service.baseUrl + config.apiEndpoint + identifier;
+        return this.httpClient.put(url, object);
+    }
+
+    static prepareQueryParams(obj: any): HttpParams {
+
+        let queryParams = new HttpParams();
+        Object.keys(obj).forEach((key: string) => {
+            const current: any = obj[key];
+            if (current !== undefined) {
+                queryParams = queryParams.append(key, current);
+            }
+        });
+        return queryParams;
     }
 }

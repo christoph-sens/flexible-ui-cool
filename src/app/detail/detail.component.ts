@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChange, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { Config } from '../service/model/config.model';
 import { TextComponent } from "../text/text.component";
 import { DropdownComponent } from "../dropdown/dropdown.component";
@@ -44,7 +44,6 @@ export class DetailComponent implements OnChanges {
 		const searchFilterNames = this.config.attributes.map((att) => att.name);
 		let result: any = {};
 		searchFilterNames.forEach((ele) => result[ele] = new FormControl((this.inputObject as any)[ele]));
-		console.log(result);
 		this.form = this.formBuilder.group(result);
 	}
 	onSubmit() {

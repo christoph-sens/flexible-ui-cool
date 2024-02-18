@@ -1,4 +1,16 @@
-<app-detail [config]="config" (result)="onSearch($event)"></app-detail>
-<app-table *ngIf="tableValues.length > 0" [values]="tableValues" (onSelectedItem)="onItemSelect($event)"></app-table>
-<app-detail *ngIf="selectedObject !== undefined" (result)="onResult($event)"
- [config]="config" [inputObject]="selectedObject"></app-detail>
+<div *ngIf="canRead()">
+    <app-detail [config]="config" (result)="onSearch($event)">
+    </app-detail>
+    <app-button label='Search' (click)="onSearchClick()"></app-button>
+
+    <app-table *ngIf="tableValues.length > 0" [values]="tableValues"
+        (onSelectedItem)="onItemSelect($event)"></app-table>
+    <app-detail *ngIf="selectedObject !== undefined" (result)="onResult($event)" [config]="config"
+        [inputObject]="selectedObject">
+    </app-detail>
+    <div *ngIf="selectedObject !== undefined">
+        <app-button label='Create' (click)="onCreate()" *ngIf="canAdd()"></app-button>
+        <app-button label="Update" (click)="onUpdate()" *ngIf="canUpdate()"></app-button>
+        <app-button label="Delete" (click)="onDelete()" *ngIf="canRemove()"></app-button>
+    </div>
+</div>
