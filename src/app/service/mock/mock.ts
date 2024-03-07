@@ -107,3 +107,45 @@ export const orderConfig: Config =
 		}
 	]
 };
+
+export const products : any[] = [
+	{
+		productId: 1,
+		name: "mascara",
+		price: 5000,
+		ingredientes: "A B C D"
+	},
+	{
+		productId: 2,
+		name: "foundation",
+		price: 15000,
+		ingredientes: "A B C D"
+	}
+];
+
+export const productConfig: Config =
+{
+	"model": "product",
+	"permissions": "CRUD",
+	"apiEndpoint": "api/prudocts/",
+	"identifier": "productId",
+	"attributes": [
+		{
+			"name": "productId",
+			"type": "String",
+			"isReadOnly": true
+		},
+		{
+			"name": "name",
+			"type": "String"
+		},
+		{
+			"name": "price",
+			"type": "String"
+		},
+		{
+			"name": "ingredientes",
+			"type": "String"
+		},
+	]
+};

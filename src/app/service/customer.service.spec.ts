@@ -1,8 +1,7 @@
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { CustomerService } from './customer.service';
 import { customers } from './mock/mock';
-import { Customer } from './model/customer.model';
 
 describe('CustomerService', () => {
 	let service: CustomerService;
@@ -26,7 +25,7 @@ describe('CustomerService', () => {
 	});
 	it('should deliver a customer response', () => {
 		const mockedResponse = customers;
-		const searchParameter: Customer = {};
+		const searchParameter = {};
 		service.searchCustomer(searchParameter).subscribe(data => {
 			expect(data).toEqual(mockedResponse);
 		});
@@ -41,3 +40,4 @@ describe('CustomerService', () => {
 
 	});
 });
+ 

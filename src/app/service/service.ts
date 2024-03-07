@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
-import { customers, orders } from "./mock/mock";
+import { customers, orders, products } from "./mock/mock";
 import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http";
 import { Config } from "./model/config.model";
 
@@ -16,6 +16,8 @@ export class Service {
     searchMock(object: any, configName: string): Observable<any[]> {
         if (configName.toLowerCase() === "customer") {
             return of(customers);
+        } else if (configName.toLowerCase() === "product") {
+            return of(products);
         } else {
             return of(orders);
         }

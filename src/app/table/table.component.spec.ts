@@ -1,13 +1,12 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TableComponent } from './table.component';
-import { Customer } from '../service/model/customer.model';
 import { customers } from '../service/mock/mock';
 import { By } from '@angular/platform-browser';
 
 describe('TableComponent', () => {
-	let component: TableComponent<Customer>;
-	let fixture: ComponentFixture<TableComponent<Customer>>;
+	let component: TableComponent;
+	let fixture: ComponentFixture<TableComponent>;
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
@@ -31,7 +30,13 @@ describe('TableComponent', () => {
 		const firstElement = list[0];
 		(firstElement.nativeElement as HTMLElement).click();
 		fixture.detectChanges();
+		console.log(component.headlines);
 		expect(component.selectedItem).toBe(customers[0]);
 
+	});
+	it('should display an empty table', () => {
+		fixture.detectChanges();
+		const list = fixture.debugElement.queryAll(By.css('.p-selectable-row'));
+		expect(list.length).toBe(0);
 	})
 });

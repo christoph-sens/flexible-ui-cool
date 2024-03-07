@@ -9,11 +9,11 @@ import { TableModule } from 'primeng/table';
 	templateUrl: './table.component.html',
 	styleUrl: './table.component.css'
 })
-export class TableComponent<T extends Object> implements OnInit {
+export class TableComponent implements OnInit {
 
-	@Input() values: T[] = [];
-	selectedItem!: T;
-	@Output() onSelectedItem = new EventEmitter<T>();
+	@Input() values: any[] = [];
+	selectedItem!: any;
+	@Output() onSelectedItem = new EventEmitter<any>();
 	headlines: string[] = [];
 
 	ngOnInit(): void {

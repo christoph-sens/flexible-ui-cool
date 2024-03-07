@@ -22,20 +22,22 @@ export class DetailComponent implements OnChanges {
 	detailFilters: DetailFilter[] = [];
 	form!: FormGroup;
 
-	constructor(private formBuilder: FormBuilder) { }
-	ngOnChanges(changes: SimpleChanges): void {
-		this.detailFilters = [];
+	constructor(private formBuilder: FormBuilder) { 
 		this.form = this.formBuilder.group([]);
+	}
+	
+	ngOnChanges(changes: SimpleChanges): void {
 		this.createDetailFilters();
 		this.createFormActionNames();
 	}
 
 	private createDetailFilters() {
+		this.detailFilters = [];
 		this.config.attributes.forEach((attr) =>
 			this.detailFilters.push({
 				name: attr.name,
 				type: attr.type,
-				value: (this.inputObject as any)[attr.name] as string,
+				value: this.inputObject[attr.name] as string,
 				readonly: attr.isReadOnly == null ? false : attr.isReadOnly
 			}))
 	}
@@ -43,7 +45,7 @@ export class DetailComponent implements OnChanges {
 	private createFormActionNames() {
 		const searchFilterNames = this.config.attributes.map((att) => att.name);
 		let result: any = {};
-		searchFilterNames.forEach((ele) => result[ele] = new FormControl((this.inputObject as any)[ele]));
+		searchFilterNames.forEach((ele) => result[ele] = new FormControl(this.inputObject[ele]));
 		this.form = this.formBuilder.group(result);
 	}
 	onSubmit() {
