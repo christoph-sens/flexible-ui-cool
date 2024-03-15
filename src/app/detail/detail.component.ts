@@ -22,13 +22,17 @@ export class DetailComponent implements OnChanges {
 	detailFilters: DetailFilter[] = [];
 	form!: FormGroup;
 
-	constructor(private formBuilder: FormBuilder) { 
+	filterMatrix: DetailFilter[][] = [[]];
+	filtersPerRow = 4;
+
+	constructor(private formBuilder: FormBuilder) {
 		this.form = this.formBuilder.group([]);
 	}
-	
+
 	ngOnChanges(changes: SimpleChanges): void {
 		this.createDetailFilters();
 		this.createFormActionNames();
+		this.createFilterMatrix();
 	}
 
 	private createDetailFilters() {
@@ -40,6 +44,15 @@ export class DetailComponent implements OnChanges {
 				value: this.inputObject[attr.name] as string,
 				readonly: attr.isReadOnly == null ? false : attr.isReadOnly
 			}))
+	}
+
+	private createFilterMatrix() {
+		this.filterMatrix = [[]];
+		for (let i = 0; i < this.detailFilters.length; i += this.filtersPerRow) {
+			this.filterMatrix.push(this.detailFilters.slice(i, i + this.filtersPerRow));
+		}
+
+
 	}
 
 	private createFormActionNames() {

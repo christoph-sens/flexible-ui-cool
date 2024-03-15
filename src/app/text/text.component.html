@@ -1,3 +1,4 @@
-<div><label>{{label}}</label>
-	<input type="text" [(ngModel)]="value" (change)="onChange($any($event.target).value)" [disabled]="disabled">
+<div class="d-flex flex-row justify-content-between m-2"><label>{{label}}</label>
+<input type="text" [(ngModel)]="value" (change)="onChange($any($event.target).value)"
+	[disabled]="disabled">
 </div>
