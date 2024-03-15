@@ -1,38 +1,28 @@
-import { Component, Input, forwardRef } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, Input } from '@angular/core';
+import { ValueAccessorDirective } from '../value-accessor-directive.directive';
 
 @Component({
 	selector: 'app-date',
 	standalone: true,
-	imports: [FormsModule],
 	templateUrl: './date.component.html',
 	styleUrl: './date.component.css',
-	providers: [
-		{
-			provide: NG_VALUE_ACCESSOR,
-			useExisting: forwardRef(() => DateComponent),
-			multi: true
-		}
-	]
-
+	hostDirectives: [ValueAccessorDirective]
 })
-export class DateComponent implements ControlValueAccessor {
+
+export class DateComponent {
 
 	@Input() label = "";
 	@Input() disabled = false;
 	@Input() value = "";
-	onChange = (value: string) => { };
 
-	setDisabledState?(isDisabled: boolean): void {
-		this.disabled = isDisabled;
+	constructor(public valueAccessor: ValueAccessorDirective<string>) {
+		this.valueAccessor.value.subscribe((date: string) => { console.log("Set value " + date); this.value = date; });
 	}
-	registerOnTouched(fn: any): void {
 
+	onChange(date: string) {
+		this.valueAccessor.valueChange(date);
 	}
-	registerOnChange(fn: any): void {
-		this.onChange = fn;
-	}
-	writeValue(obj: string): void {
-		this.value = obj;
-	}
+
+
+
 }

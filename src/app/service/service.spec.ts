@@ -26,7 +26,7 @@ describe('Service', () => {
 
 	it('should return the right mock config', (configName = ['product', 'order', 'customer']) => {
 		configName.forEach((name) => {
-			const config = service.searchMock({}, name).subscribe((x: any[]) => {
+			service.searchMock({}, name).subscribe((x: any[]) => {
 				expect(x.length).toBeGreaterThan(0);
 			});
 		});

@@ -1,5 +1,5 @@
 <div class="d-flex flex-row justify-content-between m-2"><label>{{label}}</label>
-    <select (change)="onChange($any($event.target).value)" [disabled]="disabled" [(ngModel)]="value">
+    <select (change)="onChange($any($event.target).value)" [disabled]="disabled">
         <option *ngFor="let option of options" [value]="option.value">{{ option.label }}</option>
     </select>
 </div>

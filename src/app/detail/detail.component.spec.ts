@@ -3,13 +3,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DetailComponent } from './detail.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { orderConfig } from '../service/mock/mock';
-import { DebugElement, SimpleChange, SimpleChanges } from '@angular/core';
-import { By } from '@angular/platform-browser';
 
 describe('DetailComponent', () => {
     let component: DetailComponent;
     let fixture: ComponentFixture<DetailComponent>;
-    let html: any;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -21,7 +18,6 @@ describe('DetailComponent', () => {
         component.config = orderConfig;
         component.ngOnChanges({});
         fixture.detectChanges();
-        html = fixture.nativeElement;
 
     });
 

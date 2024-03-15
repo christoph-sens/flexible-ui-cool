@@ -1,4 +1,4 @@
-<ng-container *ngIf="canRead()">
+<div *ngIf="canRead()">
     <div class="container mt-5 bg-light p-2">
         <h2>{{config.model.toUpperCase()}} SEARCH</h2>
         <app-detail [config]="config" (result)="onSearch($event)">
@@ -21,4 +21,4 @@
             <span class="ms-2"><app-button label="Delete" (click)="onDelete()" *ngIf="canRemove()"></app-button></span>
         </div>
     </div>
-</ng-container>
+</div>

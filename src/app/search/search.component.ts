@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { ConfigService } from '../service/config.service';
 import { Config } from '../service/model/config.model';
 import { TableComponent } from "../table/table.component";

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { customers, orders, products } from "./mock/mock";
-import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Config } from "./model/config.model";
 
 @Injectable({
@@ -29,17 +29,17 @@ export class Service {
         return this.httpClient.get<any[]>(Service.baseUrl + config.apiEndpoint, options);
     }
 
-    add(object: any, config: Config): Observable<Object> {
+    add(object: any, config: Config): Observable<object> {
         return this.httpClient.post(Service.baseUrl + config.apiEndpoint, object);
     }
 
-    remove(object: any, config: Config): Observable<Object> {
+    remove(object: any, config: Config): Observable<object> {
         const identifier = object[config.identifier];
         const url = Service.baseUrl + config.apiEndpoint + identifier;
         return this.httpClient.delete(url);
     }
 
-    update(object: any, config: Config): Observable<Object> {
+    update(object: any, config: Config): Observable<object> {
         const identifier = object[config.identifier];
         const url = Service.baseUrl + config.apiEndpoint + identifier;
         return this.httpClient.put(url, object);

@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CheckboxComponent } from './checkbox.component';
 import { By } from '@angular/platform-browser';
+import { ValueAccessorDirective } from '../value-accessor-directive.directive';
 
 describe('CheckboxComponent', () => {
   let component: CheckboxComponent;
@@ -11,7 +12,7 @@ describe('CheckboxComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CheckboxComponent]
+      imports: [CheckboxComponent, ValueAccessorDirective],
     })
       .compileComponents();
 
@@ -32,16 +33,15 @@ describe('CheckboxComponent', () => {
     expect(element.innerText).toBe(component.label);
   });
   it('should be checked', () => {
-    expect(component.checked).toBeFalsy();
-    checkboxInput.click();
+    component.value = true;
     fixture.detectChanges();
-    expect(component.checked).toBeTruthy();
+    expect(checkboxInput.checked).toBeTrue();
+
   });
   it('should be disabled', () => {
     component.disabled = true;
     fixture.detectChanges();
     const checkbox: HTMLInputElement = fixture.debugElement.query(By.css("input")).nativeElement;
-    console.log(checkbox);
-    expect(checkbox.getAttribute("ng-reflect-is-disabled")).toBe("true");
+    expect(checkbox.disabled).toBe(true);
   });
 });

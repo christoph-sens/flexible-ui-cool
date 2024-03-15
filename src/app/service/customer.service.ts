@@ -30,7 +30,7 @@ export class CustomerService {
 		return queryParams;
 	}
 
-	searchCostumerMock(customer: any): Observable<any[]> {
+	searchCostumerMock(): Observable<any[]> {
 		return of(customers);
 	}
 

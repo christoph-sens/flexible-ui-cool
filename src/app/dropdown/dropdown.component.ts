@@ -1,45 +1,28 @@
 import { NgFor } from '@angular/common';
-import { Component, EventEmitter, Input, Output, forwardRef } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, Input } from '@angular/core';
+import { ValueAccessorDirective } from '../value-accessor-directive.directive';
 
 @Component({
 	selector: 'app-dropdown',
 	standalone: true,
-	imports: [NgFor, FormsModule],
+	imports: [NgFor],
 	templateUrl: './dropdown.component.html',
 	styleUrl: './dropdown.component.css',
-	providers: [
-		{
-			provide: NG_VALUE_ACCESSOR,
-			useExisting: forwardRef(() => DropdownComponent),
-			multi: true
-		}
-	]
+	hostDirectives: [ValueAccessorDirective]
+
 })
-export class DropdownComponent implements ControlValueAccessor {
+export class DropdownComponent {
 	@Input() label = "";
 	@Input() disabled = false;
 	@Input() options: { value: string; label: string; }[] = [];
 	@Input() value = "";
-	selectedOption: string = '';
 
-	onChange = (value: string) => { };
-
-	setDisabledState?(isDisabled: boolean): void {
-		this.disabled = isDisabled;
-	}
-	registerOnTouched(fn: any): void {
-
-	}
-	registerOnChange(fn: any): void {
-		this.onChange = fn;
-	}
-	writeValue(obj: string): void {
-		this.value = obj
+	constructor(public valueAccessor: ValueAccessorDirective<string>) {
+		valueAccessor.value.subscribe((value: string) => this.value = value);
 	}
 
-
-
-
+	onChange(value: string) {
+		this.valueAccessor.valueChange(value);
+	}
 
 }

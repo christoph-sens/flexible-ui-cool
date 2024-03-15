@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DropdownComponent } from './dropdown.component';
+import { ValueAccessorDirective } from '../value-accessor-directive.directive';
 
 describe('DropdownComponent', () => {
   let component: DropdownComponent;
@@ -8,7 +9,8 @@ describe('DropdownComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DropdownComponent]
+      imports: [DropdownComponent],
+      providers:[ValueAccessorDirective]
     })
     .compileComponents();
     

@@ -1,39 +1,24 @@
-import { Component, Input, forwardRef } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, Input } from '@angular/core';
+import { ValueAccessorDirective } from '../value-accessor-directive.directive';
 
 @Component({
 	selector: 'app-text',
 	standalone: true,
-	imports: [FormsModule],
 	templateUrl: './text.component.html',
 	styleUrl: './text.component.css',
-	providers: [
-		{
-			provide: NG_VALUE_ACCESSOR,
-			useExisting: forwardRef(() => TextComponent),
-			multi: true
-		}
-	]
+	hostDirectives: [ValueAccessorDirective]
 })
-export class TextComponent implements ControlValueAccessor {
+export class TextComponent {
 
 	@Input() label!: string;
 	@Input() disabled = false;
 	@Input() value = "";
-	
-	
-	onChange = (value: any) => { };
-	
-	setDisabledState?(isDisabled: boolean): void {
-	}
-	registerOnTouched(fn: any): void {
-	}
-	registerOnChange(fn: any): void {
-		this.onChange = fn;
-	}
-	writeValue(obj: string): void {
-		this.value = obj;
+
+	constructor(public valueAccessor:ValueAccessorDirective<string>){
+		valueAccessor.value.subscribe((v) => (this.value = v));
 	}
 
-
+	onChange = (value: string) => {
+		this.valueAccessor.valueChange(value);
+	};
 }
