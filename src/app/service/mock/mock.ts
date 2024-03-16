@@ -56,25 +56,25 @@ export const customers: any[] = [
 		customerId: "cId1",
 		firstName: "Max",
 		lastName: "Meyer",
-		street: "Penner Str. 15",
+		street: "Berliner Str. 15",
 		phone: 123,
 		status: "UNKNOWN",
-		city: "Paderbr00klyn",
+		city: "Paderborn",
 		plz: 32100,
 		birthday: new Date(Date.now()).toISOString().substring(0, 10),
-		mail: "penner-disko.de"
+		mail: "max.meyer@meyer.de"
 	},
 	{
 		customerId: "cId2",
-		firstName: "Max",
+		firstName: "Maxi",
 		lastName: "Meyer",
-		street: "Penner Str. 15",
+		street: "Hamburger Str. 15",
 		phone: 123,
 		status: "UNKNOWN",
-		city: "Paderbr00klyn",
+		city: "Paderborn",
 		plz: 32100,
 		birthday: new Date(Date.now()).toISOString().substring(0, 10),
-		mail: "penner-disko.de"
+		mail: "maxi.meyer@meyer.de"
 	}
 ];
 
