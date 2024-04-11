@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, input, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { ConfigService } from '../service/config.service';
 import { Config } from '../service/model/config.model';
 import { TableComponent } from "../table/table.component";
@@ -16,7 +16,9 @@ import { Service } from '../service/service';
 })
 export class SearchComponent implements OnInit {
 
-	@Input() configName!: string;
+	//@Input() configName!: string;
+	configName = input('');
+
 	@ViewChildren(DetailComponent)
 	components!: QueryList<DetailComponent>;
 
@@ -34,7 +36,7 @@ export class SearchComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.configService.getConfig(this.configName).subscribe((config) => this.createDataForGrid(config));
+		this.configService.getConfig(this.configName()).subscribe((config) => this.createDataForGrid(config));
 	}
 
 	createDataForGrid(config: Config) {
@@ -42,7 +44,7 @@ export class SearchComponent implements OnInit {
 
 	}
 	onSearch(object: any) {
-		this.service.searchMock(object, this.configName).subscribe((data: any[]) => this.tableValues = data);
+		this.service.searchMock(object, this.configName()).subscribe((data: any[]) => this.tableValues = data);
 	}
 
 	onSearchClick() {

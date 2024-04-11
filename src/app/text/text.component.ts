@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input, model } from '@angular/core';
 import { ValueAccessorDirective } from '../value-accessor-directive.directive';
 
 @Component({
@@ -10,12 +10,12 @@ import { ValueAccessorDirective } from '../value-accessor-directive.directive';
 })
 export class TextComponent {
 
-	@Input() label!: string;
-	@Input() disabled = false;
-	@Input() value = "";
+	label = input('');
+	disabled = input(false);
+	value = model('');
 
-	constructor(public valueAccessor:ValueAccessorDirective<string>){
-		valueAccessor.value.subscribe((v) => (this.value = v));
+	constructor(public valueAccessor: ValueAccessorDirective<string>) {
+		valueAccessor.value.subscribe((v) => (this.value.set(v)));
 	}
 
 	onChange = (value: string) => {

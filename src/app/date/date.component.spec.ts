@@ -28,7 +28,7 @@ describe('DateComponent', () => {
   it('should show date', () => {
     const date = new Date(Date.now());
     const dateString = date.toISOString().substring(0, 10);
-    component.value = dateString;
+    fixture.componentRef.setInput("value", dateString);
     fixture.detectChanges();
     expect(html.value).toBe(dateString);
   });

@@ -1,5 +1,5 @@
 import { NgFor } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, input, model } from '@angular/core';
 import { ValueAccessorDirective } from '../value-accessor-directive.directive';
 
 @Component({
@@ -12,13 +12,18 @@ import { ValueAccessorDirective } from '../value-accessor-directive.directive';
 
 })
 export class DropdownComponent {
-	@Input() label = "";
-	@Input() disabled = false;
-	@Input() options: { value: string; label: string; }[] = [];
-	@Input() value = "";
+	// @Input() label = "";
+	// @Input() disabled = false;
+	// @Input() options: { value: string; label: string; }[] = [];
+	// @Input() value = "";
+
+	label = input('');
+	disabled = input(false);
+	options = input<{ value: string; label: string } []>([]);
+	value = model('');
 
 	constructor(public valueAccessor: ValueAccessorDirective<string>) {
-		valueAccessor.value.subscribe((value: string) => this.value = value);
+		valueAccessor.value.subscribe((value: string) => this.value.set(value));
 	}
 
 	onChange(value: string) {

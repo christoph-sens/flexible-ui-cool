@@ -1,5 +1,5 @@
 import { NgFor } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, model, OnInit, output } from '@angular/core';
 import { TableModule } from 'primeng/table';
 
 @Component({
@@ -11,20 +11,21 @@ import { TableModule } from 'primeng/table';
 })
 export class TableComponent implements OnInit {
 
-	@Input() values: any[] = [];
-	selectedItem!: any;
-	@Output() onSelectedItem = new EventEmitter<any>();
+	values = model<any[]>([]);
+	onSelectedItem = output<any>()
+
 	headlines: string[] = [];
+	selectedItem!: any;
 
 	ngOnInit(): void {
 		this.setHeadlines();
 	}
 	private setHeadlines() {
-		if (this.values.length == 0) {
+		if (this.values().length == 0) {
 			this.headlines = [];
 		}
 		else {
-			this.headlines = Object.keys(this.values[0]);
+			this.headlines = Object.keys(this.values()[0]);
 		}
 	}
 	onSelectItem() {

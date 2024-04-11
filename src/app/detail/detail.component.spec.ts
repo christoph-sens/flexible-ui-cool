@@ -15,7 +15,7 @@ describe('DetailComponent', () => {
             .compileComponents();
         fixture = TestBed.createComponent(DetailComponent);
         component = fixture.componentInstance;
-        component.config = orderConfig;
+        fixture.componentRef.setInput("config", orderConfig);
         component.ngOnChanges({});
         fixture.detectChanges();
 
@@ -29,9 +29,9 @@ describe('DetailComponent', () => {
     });
     it('should submit the data of the formular', () => {
         let result: any = null;
-        component.result.subscribe((obj: any) => result = obj);
+        component.onResult.subscribe((obj: any) => result = obj);
         component.onSubmit();
-        expect(result?.orderId).toBeNull();
+        expect(result?.orderId).toBeFalsy();
 
     });
 });

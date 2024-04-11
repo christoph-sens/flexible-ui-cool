@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input, model } from '@angular/core';
 import { ValueAccessorDirective } from '../value-accessor-directive.directive';
 
 @Component({
@@ -11,16 +11,15 @@ import { ValueAccessorDirective } from '../value-accessor-directive.directive';
 })
 export class CheckboxComponent {
 
-	@Input() label!: string;
-	@Input() disabled = false;
-	@Input() value = false;
+	label = input('');
+	disabled = input('false');
+	value = model(false);
 
 	constructor(public valueAccessor: ValueAccessorDirective<boolean>) {
-		valueAccessor.value.subscribe((checked: boolean) => this.value = checked);
+		valueAccessor.value.subscribe((checked: boolean) => this.value.set(checked));
 	}
 
 	onChange(): void {
 		this.valueAccessor.valueChange(!this.value);
-		console.error(this.value);
 	}
 }

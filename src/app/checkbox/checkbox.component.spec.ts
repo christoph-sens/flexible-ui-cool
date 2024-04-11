@@ -28,18 +28,18 @@ describe('CheckboxComponent', () => {
   });
 
   it('should have label', () => {
-    component.label = "hallo";
+    fixture.componentRef.setInput("label", "hallo");
     fixture.detectChanges();
-    expect(element.innerText).toBe(component.label);
+    expect(element.innerText).toBe(component.label());
   });
   it('should be checked', () => {
-    component.value = true;
+    fixture.componentRef.setInput("value", true);
     fixture.detectChanges();
     expect(checkboxInput.checked).toBeTrue();
 
   });
   it('should be disabled', () => {
-    component.disabled = true;
+    fixture.componentRef.setInput("disabled", true);
     fixture.detectChanges();
     const checkbox: HTMLInputElement = fixture.debugElement.query(By.css("input")).nativeElement;
     expect(checkbox.disabled).toBe(true);

@@ -24,15 +24,15 @@ describe('ButtonComponent', () => {
 	});
 	it('is disabled or enabled', (disabled = [true, false]) => {
 		disabled.forEach((dis) => {
-			component.disabled = dis;
+			fixture.componentRef.setInput("disabled", dis);
 			fixture.detectChanges();
-			expect(element.disabled).toBe(component.disabled)
+			expect(element.disabled).toBe(component.disabled())
 		})
 	});
 	it('should have a label', () => {
-		component.label = "hallo";
+		fixture.componentRef.setInput("label", "hallo");
 		fixture.detectChanges();
-		expect(element.innerText).toBe(component.label);
+		expect(element.innerText).toBe(component.label());
 	})
 
 });

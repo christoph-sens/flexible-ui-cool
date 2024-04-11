@@ -24,7 +24,7 @@ describe('TableComponent', () => {
 	});
 
 	it('should show elements and an element should be selected', () => {
-		component.values = customers;
+		fixture.componentRef.setInput("values", customers);
 		fixture.detectChanges();
 		const list = fixture.debugElement.queryAll(By.css('.p-selectable-row'));
 		const firstElement = list[0];

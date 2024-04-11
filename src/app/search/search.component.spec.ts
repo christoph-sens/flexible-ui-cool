@@ -16,7 +16,7 @@ describe('SearchComponent', () => {
 
         fixture = TestBed.createComponent(SearchComponent);
         component = fixture.componentInstance;
-        component.configName = "customer";
+        fixture.componentRef.setInput("configName", "customer");
         component.ngOnInit();
         fixture.detectChanges();
         const searchButton: HTMLButtonElement = fixture.debugElement.query(By.css("button")).nativeElement;
@@ -29,9 +29,6 @@ describe('SearchComponent', () => {
         tableElement.click();
         tableElement.dispatchEvent(new Event("click"));
         fixture.detectChanges();
-
-
-
     });
 
     it('should create', () => {

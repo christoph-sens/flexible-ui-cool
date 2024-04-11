@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, input, OnChanges, SimpleChanges, output } from '@angular/core';
 import { Config } from '../service/model/config.model';
 import { TextComponent } from "../text/text.component";
 import { DropdownComponent } from "../dropdown/dropdown.component";
@@ -16,9 +16,11 @@ import { NgFor, NgIf } from '@angular/common';
 		FormsModule, ReactiveFormsModule, NgFor, NgIf]
 })
 export class DetailComponent implements OnChanges {
-	@Input() config!: Config;
-	@Input() inputObject: any = {};
-	@Output() result = new EventEmitter<any>();
+
+	config = input<Config>();
+	inputObject = input<any>();
+	onResult = output<any>();
+
 	detailFilters: DetailFilter[] = [];
 	form!: FormGroup;
 	filtersPerRow = 4;
@@ -30,31 +32,42 @@ export class DetailComponent implements OnChanges {
 	ngOnChanges(changes: SimpleChanges): void {
 		this.createDetailFilters();
 		this.createFormActionNames();
+
 	}
 
 	private createDetailFilters() {
 		this.detailFilters = [];
-		this.config.attributes.forEach((attr) =>
+		const inputObj = this.inputObject();
+		this.config()!.attributes.forEach((attr) =>
 			this.detailFilters.push({
 				name: attr.name,
 				type: attr.type,
-				value: this.inputObject[attr.name] as string,
+				value: !inputObj ? '' : inputObj[attr.name] as string,
 				readonly: attr.isReadOnly == null ? false : attr.isReadOnly
 			}))
 	}
 
 	private createFormActionNames() {
-		const searchFilterNames = this.config.attributes.map((att) => att.name);
-		let result: any = {};
-		searchFilterNames.forEach((ele) => result[ele] = new FormControl(this.inputObject[ele]));
+		const searchFilterNames = this.config()!.attributes.map((att) => att.name);
+		const result: any = {};
+		const inputObj = this.inputObject();
+
+		searchFilterNames.forEach((ele) => {
+			if(!inputObj){
+				result[ele] = new FormControl('');
+			} else {
+				result[ele] = new FormControl(inputObj[ele]);
+			}
+		});
+
 		this.form = this.formBuilder.group(result);
 	}
 	onSubmit() {
-		const searchFilterNames = this.config.attributes.map((att) => att.name);
+		const searchFilterNames = this.config()!.attributes.map((att) => att.name);
 		const values = this.form.value;
 		const result: any = {};
 		searchFilterNames.forEach((ele) => result[ele] = values[ele]);
-		this.result.emit(result);
+		this.onResult.emit(result);
 	}
 }
 

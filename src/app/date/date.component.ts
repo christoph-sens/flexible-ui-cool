@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input, model } from '@angular/core';
 import { ValueAccessorDirective } from '../value-accessor-directive.directive';
 
 @Component({
@@ -11,12 +11,12 @@ import { ValueAccessorDirective } from '../value-accessor-directive.directive';
 
 export class DateComponent {
 
-	@Input() label = "";
-	@Input() disabled = false;
-	@Input() value = "";
+	label = input('');
+	disabled = input(false);
+	value = model('');
 
 	constructor(public valueAccessor: ValueAccessorDirective<string>) {
-		this.valueAccessor.value.subscribe((date: string) => { console.log("Set value " + date); this.value = date; });
+		this.valueAccessor.value.subscribe((date: string) => { this.value.set(date) });
 	}
 
 	onChange(date: string) {
