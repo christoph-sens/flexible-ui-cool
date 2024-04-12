@@ -1,10 +1,10 @@
-import { Component, input, OnChanges, SimpleChanges, output } from '@angular/core';
+import { Component, input, output, computed, Signal, inject } from '@angular/core';
 import { Config } from '../service/model/config.model';
 import { TextComponent } from "../text/text.component";
 import { DropdownComponent } from "../dropdown/dropdown.component";
 import { DateComponent } from "../date/date.component";
 import { ButtonComponent } from "../button/button.component";
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
 
 @Component({
@@ -13,58 +13,52 @@ import { NgFor, NgIf } from '@angular/common';
 	templateUrl: './detail.component.html',
 	styleUrl: './detail.component.css',
 	imports: [TextComponent, DropdownComponent, DateComponent, ButtonComponent,
-		FormsModule, ReactiveFormsModule, NgFor, NgIf]
+		ReactiveFormsModule, NgFor, NgIf]
 })
-export class DetailComponent implements OnChanges {
+export class DetailComponent {
 
 	config = input<Config>();
 	inputObject = input<any>();
 	onResult = output<any>();
 
-	detailFilters: DetailFilter[] = [];
-	form!: FormGroup;
-	filtersPerRow = 4;
-
-	constructor(private formBuilder: FormBuilder) {
-		this.form = this.formBuilder.group([]);
-	}
-
-	ngOnChanges(changes: SimpleChanges): void {
-		this.createDetailFilters();
-		this.createFormActionNames();
-
-	}
-
-	private createDetailFilters() {
-		this.detailFilters = [];
+	detailFilters: Signal<DetailFilter[]> = computed(() => {
+		const config = this.config();
+		const filters: DetailFilter[] = [];
 		const inputObj = this.inputObject();
-		this.config()!.attributes.forEach((attr) =>
-			this.detailFilters.push({
+		config?.attributes.forEach((attr) =>
+			filters.push({
 				name: attr.name,
 				type: attr.type,
 				value: !inputObj ? '' : inputObj[attr.name] as string,
 				readonly: attr.isReadOnly == null ? false : attr.isReadOnly
-			}))
-	}
+			}));
+		return filters;
+	});
 
-	private createFormActionNames() {
-		const searchFilterNames = this.config()!.attributes.map((att) => att.name);
+	formBuilder = inject(FormBuilder);
+	form = computed(() => {
+		const config = this.config();
+		return this.createFormActionNames(config);
+	});
+	
+	private createFormActionNames(config: Config | undefined) {
+		const searchFilterNames = config?.attributes.map((att) => att.name);
 		const result: any = {};
 		const inputObj = this.inputObject();
 
-		searchFilterNames.forEach((ele) => {
-			if(!inputObj){
+		searchFilterNames?.forEach((ele) => {
+			if (!inputObj) {
 				result[ele] = new FormControl('');
 			} else {
 				result[ele] = new FormControl(inputObj[ele]);
 			}
 		});
 
-		this.form = this.formBuilder.group(result);
+		return this.formBuilder.group(result);
 	}
 	onSubmit() {
 		const searchFilterNames = this.config()!.attributes.map((att) => att.name);
-		const values = this.form.value;
+		const values = this.form().value;
 		const result: any = {};
 		searchFilterNames.forEach((ele) => result[ele] = values[ele]);
 		this.onResult.emit(result);

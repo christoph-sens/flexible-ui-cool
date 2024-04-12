@@ -1,6 +1,6 @@
-<form [formGroup]="form">
+<form [formGroup]="form()">
 		<div class="row row-cols-4">
-			<div *ngFor="let filter of detailFilters;" class="col">
+			<div *ngFor="let filter of detailFilters();" class="col">
 				<app-text *ngIf="filter.type === 'String' || filter.type === 'number'" [label]="filter.name"
 					[formControlName]="filter.name" [value]="filter.value"></app-text>
 				<app-dropdown *ngIf="filter.type === 'enum'" [label]="filter.name" [formControlName]="filter.name"

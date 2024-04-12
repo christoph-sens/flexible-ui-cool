@@ -1,4 +1,4 @@
-import { Component, input, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, input, OnInit, viewChildren} from '@angular/core';
 import { ConfigService } from '../service/config.service';
 import { Config } from '../service/model/config.model';
 import { TableComponent } from "../table/table.component";
@@ -16,11 +16,8 @@ import { Service } from '../service/service';
 })
 export class SearchComponent implements OnInit {
 
-	//@Input() configName!: string;
 	configName = input('');
-
-	@ViewChildren(DetailComponent)
-	components!: QueryList<DetailComponent>;
+	components = viewChildren(DetailComponent);
 
 	searchObject!: any;
 
@@ -48,7 +45,7 @@ export class SearchComponent implements OnInit {
 	}
 
 	onSearchClick() {
-		this.components.first.onSubmit();
+		this.components().at(0)?.onSubmit();
 	}
 
 	onItemSelect(object: any) {
@@ -60,17 +57,17 @@ export class SearchComponent implements OnInit {
 	}
 
 	onUpdate() {
-		this.components.last.onSubmit();
+		this.components().at(1)?.onSubmit();
 		this.service.update(this.objectToSubmit, this.config).subscribe();
 	}
 
 	onDelete() {
-		this.components.last.onSubmit();
+		this.components().at(1)?.onSubmit();
 		this.service.remove(this.objectToSubmit, this.config).subscribe();
 	}
 
 	onCreate() {
-		this.components.last.onSubmit();
+		this.components().at(1)?.onSubmit();
 		this.service.add(this.objectToSubmit, this.config).subscribe();
 	}
 

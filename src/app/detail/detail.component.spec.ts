@@ -16,7 +16,6 @@ describe('DetailComponent', () => {
         fixture = TestBed.createComponent(DetailComponent);
         component = fixture.componentInstance;
         fixture.componentRef.setInput("config", orderConfig);
-        component.ngOnChanges({});
         fixture.detectChanges();
 
     });
@@ -25,7 +24,7 @@ describe('DetailComponent', () => {
         expect(component).toBeTruthy();
     });
     it('should create the form groups', () => {
-        expect(component.form.contains("orderId")).toBeTrue();
+        expect(component.form().contains("orderId")).toBeTrue();
     });
     it('should submit the data of the formular', () => {
         let result: any = null;
