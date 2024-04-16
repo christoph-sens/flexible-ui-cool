@@ -37,7 +37,7 @@ describe('Service', () => {
 			expect(data).toBe(customers);
 		});
 		const queryParams = Service.prepareQueryParams(customers[0]);
-		const req = httpTestingController.expectOne('http://localhost:4200/' + customerConfig.apiEndpoint + "?" + queryParams);
+		const req = httpTestingController.expectOne('http://localhost:4200/' + customerConfig.apiEndpoint + "search/?" + queryParams);
 		expect(req.request.method).toBe('GET');
 		req.flush(customers);
 	});

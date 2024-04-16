@@ -13,7 +13,7 @@ export class CustomerService {
 
 	searchCustomer(customer: any): Observable<any[]> {
 		const queryParams = CustomerService.prepareQueryParams(customer);
-		const url = 'http://www.example.com/search/';
+		const url = 'https://www.example.com/search/';
 		const options = { params: queryParams };
 		return this.httpClient.get<any[]>(url, options);
 	}

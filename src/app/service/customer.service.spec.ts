@@ -29,15 +29,14 @@ describe('CustomerService', () => {
 		service.searchCustomer(searchParameter).subscribe(data => {
 			expect(data).toEqual(mockedResponse);
 		});
-		const req = httpTestingController.expectOne('http://www.example.com/search/');
+		const req = httpTestingController.expectOne('https://www.example.com/search/');
 		expect(req.request.method).toBe('GET');
 		req.flush(mockedResponse);
 	});
-	it('query params are corretly computed', () => {
+	it('query params are correctly computed', () => {
 		const httpsParams = CustomerService.prepareQueryParams(customers[0]);
 		console.log(customers[0]);
 		expect(httpsParams.keys().length).toBe(Object.keys(customers[0]).length);
 
 	});
 });
- 

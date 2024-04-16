@@ -26,7 +26,7 @@ export class Service {
     search(object: any, config: Config): Observable<any[]> {
         const queryParams = Service.prepareQueryParams(object);
         const options = { params: queryParams };
-        return this.httpClient.get<any[]>(Service.baseUrl + config.apiEndpoint, options);
+        return this.httpClient.get<any[]>(Service.baseUrl + config.apiEndpoint + 'search/', options);
     }
 
     add(object: any, config: Config): Observable<object> {

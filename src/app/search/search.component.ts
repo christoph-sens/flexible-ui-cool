@@ -33,13 +33,9 @@ export class SearchComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.configService.getConfig(this.configName()).subscribe((config) => this.createDataForGrid(config));
+		this.configService.getConfig(this.configName()).subscribe((config) => this.config = config);
 	}
 
-	createDataForGrid(config: Config) {
-		this.config = config;
-
-	}
 	onSearch(object: any) {
 		this.service.searchMock(object, this.configName()).subscribe((data: any[]) => this.tableValues = data);
 	}
