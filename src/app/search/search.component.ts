@@ -37,7 +37,7 @@ export class SearchComponent implements OnInit {
 	}
 
 	onSearch(object: any) {
-		this.service.searchMock(object, this.configName()).subscribe((data: any[]) => this.tableValues = data);
+		this.service.searchMock(object, this.config).subscribe((data: any[]) => this.tableValues = data);
 	}
 
 	onSearchClick() {

@@ -1,6 +1,6 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { customerConfig, customers } from './mock/mock';
+import { customerConfig, customers, orderConfig, productConfig } from './mock/mock';
 import { Service } from './service';
 
 describe('Service', () => {
@@ -24,9 +24,9 @@ describe('Service', () => {
 		expect(service).toBeTruthy();
 	});
 
-	it('should return the right mock config', (configName = ['product', 'order', 'customer']) => {
-		configName.forEach((name) => {
-			service.searchMock({}, name).subscribe((x: any[]) => {
+	it('should return the right mock config', (configName = [productConfig, orderConfig, customerConfig]) => {
+		configName.forEach((config) => {
+			service.searchMock({}, config).subscribe((x: any[]) => {
 				expect(x.length).toBeGreaterThan(0);
 			});
 		});

@@ -13,10 +13,10 @@ export class Service {
 
     constructor(private httpClient: HttpClient) { }
 
-    searchMock(object: any, configName: string): Observable<any[]> {
-        if (configName.toLowerCase() === "customer") {
+    searchMock(object: any, config: Config): Observable<any[]> {
+        if (config.model.toLowerCase() === "customer") {
             return of(customers);
-        } else if (configName.toLowerCase() === "product") {
+        } else if (config.model.toLowerCase() === "product") {
             return of(products);
         } else {
             return of(orders);
